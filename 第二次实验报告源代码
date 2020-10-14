@@ -1,0 +1,193 @@
+头文件
+ #pragma once
+ 2 #include <stdio.h>
+ 3 /*---------------函数声明-------------------*/
+ 4 
+ 5 //求解一元二次方程组
+ 6 void solve(double a, double b, double c);
+ 7 
+ 8 //实现相同类型数据的交换
+ 9 void swap(int* a, int* b);
+10  
+1 #pragma once
+ 2 #include <stdio.h>
+ 3 
+ 4 /*------------函数声明--------------*/
+ 5 //任务二
+ 6 //计算三角形的面积
+ 7 void area(float a, float b, float c);
+ 
+8  #pragma once
+ 2 #include <stdio.h>
+ 3 
+ 4 /*------------函数声明--------------*/
+ 5 //任务三
+ 6  int Numberofday(int year, int month, int day);
+ int Numberofweek(int number, int year);
+
+
+
+task 1.cpp
+1 #define _CRT_SECURE_NO_WARNINGS
+ 2 #include <math.h>
+ 3 #include <stdlib.h>
+ 4 #include <stdio.h>
+ 5 #include<iostream>
+ 6 #include<istream>
+ 7 #include "task 1.h"
+ 8 using namespace std;
+ 9 //求解一元二次方程组
+10 void solve(float a, float b, float c)
+11 {
+12     float d = b * b - 4 * a*c;
+13     if (d >= 0)
+14         {
+15             if (d > 0)
+16                 {
+17                     double x = ((-b) + sqrt(d)) / (2 * a);
+18                     double y = ((-b) - sqrt(d)) / (2 * a);
+19                     cout << "方程有两个解" << "\t" << x << "\t" << y << endl;
+20                 }
+21             else
+22                 {
+23                     double x = ((-b) + sqrt(d)) / (2 * a);
+24                     cout << "方程有一个的根:" << x << endl;
+25                 }
+26         }
+27     else
+28         cout << "这个方程没有实数解" << endl;
+29 }
+30 
+31 //实现相同类型数据的交换
+32 void swap(int* a,int* b)
+33 {
+34     int* c;
+35     *c=*a;
+36     *a=*b;
+37     *b=*c;
+38 }
+task 2.cpp
+1 #define  _CRT_SECURE_NO_WARNINGS
+ 2 #include <math.h>
+ 3 #include <stdlib.h>
+ 4 #include <stdio.h>
+ 5 #include "task 2.h"
+ 6 //计算三角形的面积
+ 7 void area(double a, double b, double c)
+ 8 {
+ 9     double p;
+10     double s;
+11     if (a + b > c&& a + c > b&& b + c > a)
+12         {
+13             p = (a + b + c) / 2;
+14             s = sqrt(p * (p - a) * (p - b) * (p - c));
+15             printf_s("三角形的面积为：%lf\n", s);
+16         }
+17     else
+18         printf_s("不能构成三角形\n");
+19 }
+
+task 3.cpp
+1 #define  _CRT_SECURE_NO_WARNINGS
+ 2 #include<iostream>
+ 3 using namespace std;
+ 4 int Numberofday(int year, int month, int day)
+ 5 {
+ 6     int i, daysum = 0;
+ 7     for (i = 1; i < month; i++)
+ 8         {
+ 9             switch (i)
+10                 {
+11                 case 1:
+12                 case 3:
+13                 case 5:
+14                 case 7:
+15                 case 8:
+16                 case 10:
+17                 case 12:
+18                     daysum += 31;
+19                     break;
+20                 case 4:
+21                 case 6:
+22                 case 9:
+23                 case 11:
+24                     daysum += 30;
+25                     break;
+26                 case 2:
+27                     if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0))
+28                         daysum += 29;
+29                     else
+30                         daysum += 28;
+31                 }
+32         }
+33     daysum += day;
+34     return daysum;
+35 }
+36 int Numberofweek(int number, int year)
+37 {
+38     int firstweek = 3, i, week = 1, date;
+39     date = firstweek;
+40     for (i = 0; i < number; i++)
+41         {
+42             date = (date + 1) % 7;
+43             if (date == 1)
+44                 week++;
+45         }
+46     return week;
+47 }
+
+main.cpp
+1 #define  _CRT_SECURE_NO_WARNINGS
+ 2 
+ 3 /*************************************************
+ 4 ** 功能 : 实现三个任务
+ 5 ** 作者 : 第三小组
+ 6 /**************************************************/
+ 7 
+ 8 
+ 9 #include <stdio.h>
+10 #include <stdlib.h>
+11 #include <windows.h>
+12 #include <iostream>
+13 #include "task 1.h"
+14 #include "task 2.h"
+15 #include "task 3.h"
+16 using namespace std;
+17 
+18 /*----------------------------------*
+19 		主函数
+20 *-----------------------------------*/
+21 
+22 main()
+23 {
+24 
+25     printf("******************************\n");
+26     printf("       the achievement of three tasks       \n");
+27     printf("         Group Three            \n");
+28     printf("******************************\n\n");
+29     //定义变量
+30     double a, b, c;
+31     int m, n;
+32     float x, y, z;
+33     //求解二元一次方程组
+34     cout << " please input equation coefficient " << endl;
+35     cin >> a >> b >> c;
+36     solve(a, b, c);
+37     //交换两个同类型的数
+38     cout << "please input two numbers" << endl;
+39     cin >> x >> y;
+40     swap(&m, &n);
+41     //计算三角形的面积
+42     cout << "please input three edges" << endl;
+43     cin >> x >> y >> z;
+44     //得天数和周数
+45     int year, month, day, number, week;
+46     cout << "input year month day (xxxx-xx-xx,the data after 2020-1-1)" << endl;
+47     cin >> year >> month >> day;
+48     number = Numberofday(year, month, day);
+49     week = Numberofweek(number, year);
+50     cout << "day " << number << endl;
+51     cout << "week " << week << endl;
+52     system("pause");
+53 
+54 }
